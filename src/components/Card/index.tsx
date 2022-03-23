@@ -1,4 +1,4 @@
-import { IAppointment } from "../../models/environment";
+import { IAppointment } from "../../models/appointments";
 import { IEnvironments } from "../../models/environments";
 import { CardContainer } from "./styles";
 
@@ -25,7 +25,7 @@ export default function Card({ item }: CardProps) {
 	const addZero = (item: number) => (item < 10 ? `0${item}` : `${item}`);
 
 	return (
-		<CardContainer isItToday={itsToDay(item.date_start, item.time_start)}>
+		<CardContainer isItToday={itsToDay(item.start.toString(), item.end.toString())}>
 			<span>{item.title}</span>
 			<span>{item.description}</span>
 			<div>

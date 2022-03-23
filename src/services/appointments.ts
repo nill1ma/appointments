@@ -1,4 +1,4 @@
-import { IAppointment } from "../models/environment"
+import { IAppointment } from "../models/appointments"
 
 export const getAppointment = () => JSON.parse(localStorage.getItem(`appointments`) || `[]`)
 

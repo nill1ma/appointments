@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { IAppointment } from "../../models/environment";
 
 type ButtonProps = {
   label: string;
