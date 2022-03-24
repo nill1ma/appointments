@@ -1,10 +1,10 @@
 export interface IAppointment {
-  [key: string]: string | Date;
-  id: string;
-  title: string;
-  description: string;
-  start: Date;
-  end: Date;
+	[key: string]: Date | string;
+	id: string;
+	title: string;
+	description: string;
+	start: Date;
+	end: Date;
 }
 
 export type InputAppointment = Omit<IAppointment, "start" | "end"> & {
@@ -12,4 +12,4 @@ export type InputAppointment = Omit<IAppointment, "start" | "end"> & {
 	date_end: string;
 	time_start: string;
 	time_end: string;
-  };
+};

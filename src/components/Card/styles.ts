@@ -4,12 +4,11 @@ type CardContainerProps = {
 	isItToday: boolean;
 };
 
-export const CardContainer = styled.div<CardContainerProps>`
+export const CardContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	border: 1px solid #2c2c2c;
-	background-color: ${({ isItToday }) => isItToday && "#87CEEB"};
 	cursor: pointer;
 	width: 20%;
 	height: 100px;

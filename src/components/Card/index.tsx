@@ -24,20 +24,17 @@ export default function Card({ item }: CardProps) {
 
 	const addZero = (item: number) => (item < 10 ? `0${item}` : `${item}`);
 
+	const convertDate = (date: Date) => `${date.getHours()} ${date.getMinutes()}`;
+
 	return (
-		<CardContainer isItToday={itsToDay(item.start.toString(), item.end.toString())}>
+		<CardContainer>
 			<span>{item.title}</span>
 			<span>{item.description}</span>
 			<div>
 				<div>
 					<span>Start: </span>
-					<span>{item.date_start}</span>
-					<span>{item.time_start}</span>
-				</div>
-				<div>
-					<span>End: </span>
-					<span>{item.date_end}</span>
-					<span>{item.time_end}</span>
+					<span>{convertDate(item.start)}</span>
+					<span>{convertDate(item.end)}</span>
 				</div>
 			</div>
 		</CardContainer>
