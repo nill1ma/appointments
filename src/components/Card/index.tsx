@@ -1,41 +1,26 @@
 import { IAppointment } from "../../models/appointments";
-import { IEnvironments } from "../../models/environments";
 import { CardContainer } from "./styles";
 
 type CardProps = {
-	item: IEnvironments | IAppointment;
+	item: IAppointment;
+	setDetail: (item: IAppointment) => void;
 };
 
-export default function Card({ item }: CardProps) {
-	const itsToDay = (date: string, time: string) => {
-		const instance = new Date();
-		const currentDate = `${instance.getFullYear()}-${addZero(
-			instance.getMonth() + 1
-		)}-${addZero(instance.getDate())}`;
-
-		const currentTime = `${addZero(instance.getHours())}:${addZero(
-			instance.getMinutes()
-		)}`;
-
-		console.log(performance.now(), " performance.now()");
-
-		return currentDate === date && currentTime === time;
+export default function Card({ item, setDetail }: CardProps) {
+	const itIsWithin = () => {
+		const date = new Date();
+		return (
+			date.getTime() >= new Date(item.start).getTime() &&
+			date.getTime() <= new Date(item.end).getTime()
+		);
 	};
 
-	const addZero = (item: number) => (item < 10 ? `0${item}` : `${item}`);
-
-	const convertDate = (date: Date) => `${date.getHours()} ${date.getMinutes()}`;
-
 	return (
-		<CardContainer>
+		<CardContainer onClick={() => setDetail(item)} itIsWithin={itIsWithin()}>
 			<span>{item.title}</span>
-			<span>{item.description}</span>
 			<div>
-				<div>
-					<span>Start: </span>
-					<span>{convertDate(item.start)}</span>
-					<span>{convertDate(item.end)}</span>
-				</div>
+				<span>Start: {item.start}</span>
+				<span>End: {item.end}</span>
 			</div>
 		</CardContainer>
 	);

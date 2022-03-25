@@ -1,10 +1,10 @@
 export interface IAppointment {
-	[key: string]: Date | string;
+	[key: string]: string;
 	id: string;
 	title: string;
 	description: string;
-	start: Date;
-	end: Date;
+	start: string;
+	end: string;
 }
 
 export type InputAppointment = Omit<IAppointment, "start" | "end"> & {

@@ -2,10 +2,11 @@ import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import Button from "../../components/Button";
 import Card from "../../components/Card";
+import CardDetail from "../../components/CardDetail";
 import CreateAppointment from "../../components/CreateAppointment";
 import { IAppointment, InputAppointment } from "../../models/appointments";
 import { getAppointment, saveAppointment } from "../../services/appointments";
-import { CardsContainer, Container } from "./styles";
+import { CardsContainer, Container, Content } from "./styles";
 
 export default function Appointment() {
 	const [open, setOpen] = useState<boolean>(false);
@@ -13,19 +14,21 @@ export default function Appointment() {
 		getAppointment()
 	);
 
+	const [detail, setDetail] = useState<IAppointment>();
+
 	const save = (appointment: InputAppointment) => {
 		const { date_start, date_end, time_start, time_end, ...rest } = appointment;
 
 		const { title, description } = rest;
 
 		const app: IAppointment = {
-			title: `${title}`,
-			description: `${description}`,
+			title,
+			description,
 			id: uuidv4(),
-			start: new Date(`${date_start} ${time_start}`),
-			end: new Date(`${date_end} ${time_end}`),
+			start: `${date_start} ${time_start}:00`,
+			end: `${date_end} ${time_end}:59`,
 		};
-		console.log(app, ` Current Saved appointment`);
+
 		setAppointments([...appointments, app]);
 		saveAppointment(app);
 	};
@@ -35,11 +38,20 @@ export default function Appointment() {
 	return (
 		<Container>
 			<div>{open && <CreateAppointment open={open} action={save} />}</div>
-			<CardsContainer>
-				{appointments.map((appointment: IAppointment) => {
-					return <Card key={appointment.id} item={appointment} />;
-				})}
-			</CardsContainer>
+			<Content>
+				<CardsContainer hasDetail={detail !== undefined}>
+					{appointments.map((appointment: IAppointment) => {
+						return (
+							<Card
+								key={appointment.id}
+								item={appointment}
+								setDetail={setDetail}
+							/>
+						);
+					})}
+				</CardsContainer>
+				{detail && <CardDetail detail={detail} setDetail={setDetail} />}
+			</Content>
 			<Button
 				bottom={`5%`}
 				self_alignment={`flex-end`}

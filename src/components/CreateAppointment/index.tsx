@@ -8,6 +8,7 @@ type Inputs = {
 	name: string;
 	label: string;
 	type: string;
+	placeholder?: string;
 };
 
 type CreateAppointmentProps = {
@@ -20,8 +21,20 @@ export default function CreateAppointment({
 	action,
 }: CreateAppointmentProps) {
 	const inputs: Inputs[] = [
-		{ id: "1", name: `title`, label: `Title:`, type: `text` },
-		{ id: "3", name: `description`, label: `Description:`, type: `text` },
+		{
+			id: "1",
+			name: `title`,
+			label: `Title:`,
+			type: `text`,
+			placeholder: `Type a Title`,
+		},
+		{
+			id: "3",
+			name: `description`,
+			label: `Description:`,
+			type: `text`,
+			placeholder: `Type a Description`,
+		},
 		{ id: "5", name: `date_start`, label: `Date Start:`, type: `date` },
 		{ id: "7", name: `date_end`, label: `Date End:`, type: `date` },
 		{ id: "9", name: `time_start`, label: `Time Start:`, type: `time` },
@@ -46,7 +59,7 @@ export default function CreateAppointment({
 	return (
 		<Container open={open}>
 			<InputsContainer>
-				{inputs.map(({ id, name, label, type }: Inputs) => {
+				{inputs.map(({ id, name, label, type, placeholder }: Inputs) => {
 					return (
 						<InputArea key={id} type={type}>
 							<label key={`${label}`} htmlFor={name}>
@@ -57,6 +70,7 @@ export default function CreateAppointment({
 								onChange={(e: ChangeEvent<HTMLInputElement>) =>
 									hadleAppointment(e)
 								}
+								placeholder={placeholder}
 								type={type}
 								name={name}
 								id={name}
