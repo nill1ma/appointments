@@ -1,4 +1,5 @@
 import { IAppointment } from "../../models/appointments";
+import { formatDate } from "../../utils/handle-date";
 import { CardContainer } from "./styles";
 
 type CardProps = {
@@ -19,8 +20,8 @@ export default function Card({ item, setDetail }: CardProps) {
 		<CardContainer onClick={() => setDetail(item)} itIsWithin={itIsWithin()}>
 			<span>{item.title}</span>
 			<div>
-				<span>Start: {item.start}</span>
-				<span>End: {item.end}</span>
+				<span>Start: {formatDate(item.start)}</span>
+				<span>End: {formatDate(item.end)}</span>
 			</div>
 		</CardContainer>
 	);

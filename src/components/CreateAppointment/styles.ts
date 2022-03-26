@@ -11,8 +11,10 @@ export const Container = styled.div<EventsProps>`
 	transition: ${({ open }) => (open || !open) && "width 2s"};
 	display: flex;
 	flex-direction: column;
+	justify-content: center;
 	color: #ffffff;
-	padding: 10px;
+	padding: 0 10px;
+	height: 25vh;
 	background-color: #2c2c2c;
 	button {
 		align-self: flex-start;

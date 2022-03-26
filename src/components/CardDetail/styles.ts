@@ -5,6 +5,7 @@ export const Container = styled.div`
 	width: 50%;
 	flex-direction: column;
 	align-items: center;
+	border: 1px solid #fff;
 	span:nth-child(1) {
 		font-weight: bold;
 		color: #fff;

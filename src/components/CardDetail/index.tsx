@@ -1,5 +1,6 @@
 import { IAppointment } from "../../models/appointments";
 import { Container } from "./styles";
+import { formatDate } from "../../utils/handle-date";
 
 type CardDetailProps = {
 	detail: IAppointment;
@@ -11,8 +12,8 @@ export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 		<Container>
 			<span onClick={() => setDetail(undefined)}>{detail.title}</span>
 			<span>{detail.description}</span>
-			<span>Start: {detail.start}</span>
-			<span>End: {detail.end}</span>
+			<span>Start: {formatDate(detail.start)}</span>
+			<span>End: {formatDate(detail.end)}</span>
 		</Container>
 	);
 }

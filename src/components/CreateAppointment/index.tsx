@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from "react";
-import { InputAppointment } from "../../models/appointments";
+import { IAppointment } from "../../models/appointments";
 import Button from "../Button";
 import { Container, InputArea, InputsContainer } from "./styles";
 
@@ -12,37 +12,35 @@ type Inputs = {
 };
 
 type CreateAppointmentProps = {
-	open: boolean;
-	action: (appointment: InputAppointment) => void;
+	isOpened: boolean;
+	action: (appointment: IAppointment) => void;
 };
 
 export default function CreateAppointment({
-	open,
+	isOpened,
 	action,
 }: CreateAppointmentProps) {
 	const inputs: Inputs[] = [
 		{
 			id: "1",
 			name: `title`,
-			label: `Title:`,
+			label: `Title`,
 			type: `text`,
 			placeholder: `Type a Title`,
 		},
 		{
 			id: "3",
 			name: `description`,
-			label: `Description:`,
+			label: `Description`,
 			type: `text`,
 			placeholder: `Type a Description`,
 		},
-		{ id: "5", name: `date_start`, label: `Date Start:`, type: `date` },
-		{ id: "7", name: `date_end`, label: `Date End:`, type: `date` },
-		{ id: "9", name: `time_start`, label: `Time Start:`, type: `time` },
-		{ id: "11", name: `time_end`, label: `Time End:`, type: `time` },
+		{ id: "5", name: `start`, label: `Start`, type: `datetime-local` },
+		{ id: "7", name: `end`, label: `End`, type: `datetime-local` },
 	];
 
-	const [appointment, setAppointment] = useState<InputAppointment>(
-		{} as InputAppointment
+	const [appointment, setAppointment] = useState<IAppointment>(
+		{} as IAppointment
 	);
 
 	const useAction = () => {
@@ -51,13 +49,13 @@ export default function CreateAppointment({
 
 	const hadleAppointment = (event: ChangeEvent<HTMLInputElement>) => {
 		const { name, value } = event.target;
-		setAppointment((previous: InputAppointment) => {
+		setAppointment((previous: IAppointment) => {
 			return { ...previous, [name]: value };
 		});
 	};
 
 	return (
-		<Container open={open}>
+		<Container open={isOpened}>
 			<InputsContainer>
 				{inputs.map(({ id, name, label, type, placeholder }: Inputs) => {
 					return (
