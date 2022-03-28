@@ -10,7 +10,9 @@ type CardDetailProps = {
 export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 	return (
 		<Container>
-			<span onClick={() => setDetail(undefined)}>{detail.title}</span>
+			<span data-testid={"close-area"} onClick={() => setDetail(undefined)}>
+				{detail.title}
+			</span>
 			<span>{detail.description}</span>
 			<span>Start: {formatDate(detail.start)}</span>
 			<span>End: {formatDate(detail.end)}</span>

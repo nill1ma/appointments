@@ -35,7 +35,7 @@ export default function Appointment() {
 			<div>
 				{isOpened && <CreateAppointment isOpened={isOpened} action={save} />}
 			</div>
-			<Content>
+			<Content isOpened={isOpened}>
 				<CardsContainer hasDetail={detail !== undefined}>
 					{appointments.map((appointment: IAppointment) => {
 						return (
@@ -51,6 +51,7 @@ export default function Appointment() {
 			</Content>
 			<Button
 				bottom={`5%`}
+				right={`1%`}
 				self_alignment={`flex-end`}
 				position={`fixed`}
 				label={isOpened ? `Keep it hidden` : `Create an Environment`}

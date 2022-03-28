@@ -1,7 +1,8 @@
 import styled from "styled-components";
 
 type CardsContainerProps = {
-	hasDetail: boolean;
+	hasDetail?: boolean;
+	isOpened?: boolean;
 };
 
 export const Container = styled.div`
@@ -14,23 +15,18 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	width: ${({ hasDetail }) => (hasDetail ? `50%` : `100%`)};
 	display: flex;
 	flex-wrap: wrap;
-	height: 75vh;
 	border-right: 1px solid #2c2c2c;
-	overflow-y: auto;
+	overflow-y: scroll;
 	::-webkit-scrollbar {
-		width: 12px;
+		width: 5px;
 	}
 
 	/* Track */
 	::-webkit-scrollbar-track {
 		-webkit-box-shadow: inset 0 0 6px #2c2c2c;
-		-webkit-border-radius: 10px;
-		border-radius: 10px;
 	}
 	/* Handle */
 	::-webkit-scrollbar-thumb {
-		-webkit-border-radius: 10px;
-		border-radius: 10px;
 		background: #363636;
 		-webkit-box-shadow: inset 0 0 6px #2c2c2c;
 	}
@@ -39,7 +35,8 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	}
 `;
 
-export const Content = styled.div`
+export const Content = styled.div<CardsContainerProps>`
 	width: 100%;
 	display: flex;
+	height: ${({ isOpened }) => (isOpened ? "75vh" : "100vh")};
 `;

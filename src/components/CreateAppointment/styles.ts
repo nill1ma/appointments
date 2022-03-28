@@ -16,6 +16,7 @@ export const Container = styled.div<EventsProps>`
 	padding: 0 10px;
 	height: 25vh;
 	background-color: #2c2c2c;
+	border-bottom: #00bfff;
 	button {
 		align-self: flex-start;
 		margin-top: 10px;
