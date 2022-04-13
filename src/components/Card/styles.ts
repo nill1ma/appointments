@@ -7,7 +7,7 @@ type CardContainerProps = {
 export const CardContainer = styled.div<CardContainerProps>`
 	display: flex;
 	flex-direction: column;
-	justify-content: center;
+	justify-content: space-around;
 	border: 1px solid #2c2c2c;
 	background-color: ${({ itIsWithin }) => itIsWithin && "#87CEEB"};
 	cursor: pointer;
@@ -18,6 +18,8 @@ export const CardContainer = styled.div<CardContainerProps>`
 		font-size: 0.8em;
 	}
 	div {
+		align-self: flex-end;
+		padding: 5%;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;

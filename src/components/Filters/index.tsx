@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { PeriodFiltersEnum } from "../../models/enumns/period-filters";
 import { References } from "../../models/filters-references";
-import { Container, Direction, Item, ReferencesList } from "./styles";
+import { Container, Direction } from "./styles";
 
 type FiltersProps = {
 	handleCurrentPeriod: (ref: References) => void;
@@ -77,20 +77,6 @@ export default function Filters({ handleCurrentPeriod }: FiltersProps) {
 
 	return (
 		<Container>
-			<ReferencesList>
-				{referencesMenu.map(({ label, type, value, active }: References) => {
-					return (
-						<Item
-							active={active}
-							onClick={() => handleCurrentReference({ type, value })}
-							key={type}
-							value={type}
-						>
-							{label}
-						</Item>
-					);
-				})}
-			</ReferencesList>
 			<div className="refValueArea">
 				<Direction isNext={false} onClick={filterDecrement}>
 					Prev

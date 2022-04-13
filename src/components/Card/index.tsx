@@ -20,8 +20,7 @@ export default function Card({ item, setDetail }: CardProps) {
 		<CardContainer onClick={() => setDetail(item)} itIsWithin={itIsWithin()}>
 			<span>{item.title}</span>
 			<div>
-				<span>Start: {formatDate(item.start)}</span>
-				<span>End: {formatDate(item.end)}</span>
+				<span>Starts: {formatDate(item.start.split(" ")[0])}</span>
 			</div>
 		</CardContainer>
 	);
