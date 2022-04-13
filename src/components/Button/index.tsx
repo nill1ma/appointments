@@ -7,6 +7,7 @@ type ButtonProps = {
 	bottom?: string;
 	right?: string;
 	self_alignment?: string;
+	borderRadius?: string;
 };
 
 type ButtonStyleProps = {
@@ -14,6 +15,7 @@ type ButtonStyleProps = {
 	bottom?: string;
 	right?: string;
 	self_alignment?: string;
+	borderRadius?: string;
 };
 const ButtonStyle = styled.button<ButtonStyleProps>`
 	padding: 10px;
@@ -25,7 +27,8 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 	bottom: ${({ bottom }) => bottom};
 	right: ${({ right }) => right};
 	align-self: ${({ self_alignment }) => self_alignment};
-	border-radius: 10px;
+	border-radius: ${({ borderRadius }) =>
+		borderRadius ? borderRadius : `10px`};
 `;
 
 export default function Button({
@@ -35,6 +38,7 @@ export default function Button({
 	bottom,
 	right,
 	self_alignment,
+	borderRadius,
 }: ButtonProps) {
 	return (
 		<ButtonStyle
@@ -43,6 +47,7 @@ export default function Button({
 			position={position}
 			right={right}
 			onClick={() => action()}
+			borderRadius={borderRadius}
 		>
 			{label}
 		</ButtonStyle>

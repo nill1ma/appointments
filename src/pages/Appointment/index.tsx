@@ -4,14 +4,16 @@ import Button from "../../components/Button";
 import Card from "../../components/Card";
 import CardDetail from "../../components/CardDetail";
 import CreateAppointment from "../../components/CreateAppointment";
+import Filters from "../../components/Filters";
 import { IAppointment } from "../../models/appointments";
-import { getAppointment, saveAppointment } from "../../services/appointments";
+import { References } from "../../models/filters-references";
+import { getAppointments, saveAppointment } from "../../services/appointments";
 import { CardsContainer, Container, Content } from "./styles";
 
 export default function Appointment() {
 	const [isOpened, setIsOpened] = useState<boolean>(false);
 	const [appointments, setAppointments] = useState<IAppointment[]>(
-		getAppointment()
+		getAppointments()
 	);
 
 	const [detail, setDetail] = useState<IAppointment>();
@@ -30,12 +32,37 @@ export default function Appointment() {
 
 	const handleOpenedState = () => setIsOpened(!isOpened);
 
+	const filterAppointments = (reference: References) => {
+		const allAppointments: IAppointment[] = getAppointments();
+		const filteredAppointments = allAppointments.filter((app: IAppointment) => {
+			const { type, value } = reference;
+			const date = new Date(app.start);
+			// const result = compareReferences(type, d, String(value));
+			const result = date.getFullYear() === reference.value;
+			return result;
+		});
+		setAppointments([...filteredAppointments]);
+	};
+
+	const compareReferences = (type: string, filter: Date, reference: string) => {
+		switch (type) {
+			case "MONTH":
+				return `${filter.getMonth() + 1}` === reference;
+			default:
+				return String(filter.getFullYear()) === reference;
+		}
+	};
+
 	return (
 		<Container>
-			<div>
-				{isOpened && <CreateAppointment isOpened={isOpened} action={save} />}
-			</div>
-			<Content isOpened={isOpened}>
+			<>
+				{isOpened ? (
+					<CreateAppointment isOpened={isOpened} action={save} />
+				) : (
+					<Filters handleCurrentPeriod={filterAppointments} />
+				)}
+			</>
+			<Content>
 				<CardsContainer hasDetail={detail !== undefined}>
 					{appointments.map((appointment: IAppointment) => {
 						return (

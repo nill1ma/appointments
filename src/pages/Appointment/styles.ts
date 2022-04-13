@@ -35,8 +35,8 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	}
 `;
 
-export const Content = styled.div<CardsContainerProps>`
+export const Content = styled.div`
 	width: 100%;
 	display: flex;
-	height: ${({ isOpened }) => (isOpened ? "75vh" : "100vh")};
+	height: 75vh;
 `;

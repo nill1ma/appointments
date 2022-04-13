@@ -1,0 +1,52 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Appointment Should load Create Appointment component when click in Create an Environment 1`] = `
+Array [
+  <input
+    id="description"
+    name="description"
+    placeholder="Type a Description"
+    type="text"
+  />,
+]
+`;
+
+exports[`Appointment Should make sure that there is Save button after click on Create an Environment 1`] = `
+Array [
+  <button
+    class="sc-bdvvtL ignKBR"
+  >
+    save
+  </button>,
+]
+`;
+
+exports[`Appointment Should make sure that there is the correct text on button after click on Create an Environment 1`] = `
+Array [
+  <button
+    class="sc-bdvvtL lhuVmG"
+  >
+    Keep it hidden
+  </button>,
+]
+`;
+
+exports[`Appointment Should make sure that there is the correct text on button after click on Create an Environment 2`] = `
+Array [
+  <button
+    class="sc-bdvvtL lhuVmG"
+  >
+    Create an Environment
+  </button>,
+]
+`;
+
+exports[`Appointment Should make sure that there is the correct text on button before click on Create an Environment 1`] = `
+Array [
+  <button
+    class="sc-bdvvtL lhuVmG"
+  >
+    Create an Environment
+  </button>,
+]
+`;

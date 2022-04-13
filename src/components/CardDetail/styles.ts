@@ -5,19 +5,16 @@ export const Container = styled.div`
 	width: 50%;
 	flex-direction: column;
 	align-items: center;
-	border: 1px solid #fff;
-	span:nth-child(1) {
+	span:nth-child(0) {
 		font-weight: bold;
 		color: #fff;
-		background-color: #2d2d2d;
 		display: flex;
 		justify-content: center;
 		width: 96%;
-		border: 1px solid #2c2c2c;
 		padding: 2%;
 	}
-	span:nth-child(2) {
-		width: 50%;
-		text-align: left;
+	div {
+		display: flex;
+		flex-direction: column;
 	}
 `;
