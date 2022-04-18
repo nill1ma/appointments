@@ -1,5 +1,6 @@
 import { ChangeEvent, useState } from "react";
 import { IAppointment } from "../../models/appointments";
+import { Users } from "../../models/users";
 import Button from "../Button";
 import { Container, InputArea, InputsContainer } from "./styles";
 

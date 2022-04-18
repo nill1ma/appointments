@@ -1,12 +1,9 @@
-import { randomUUID } from "crypto";
 import { useState } from "react";
-import Header from "../../components/Header";
+import { v4 as uuidv4 } from "uuid";
+import Button from "../../components/Button";
 import { IEnvironments } from "../../models/environments";
 import { getEnvironments, saveEnvironment } from "../../services/environments";
 import { CardsContainer, Container } from "./styles";
-import { v4 as uuidv4 } from "uuid";
-import Card from "../../components/Card";
-import Button from "../../components/Button";
 
 export default function Environments() {
 	const [environments, setEnvironments] = useState<IEnvironments[]>(
@@ -30,7 +27,6 @@ export default function Environments() {
 					label={open ? `Keep it hidden` : `Create an Environment`}
 					action={handleOpenState}
 				/>
-				{open && <Header action={save} />}
 			</div>
 			<CardsContainer>
 				{environments.map((env: IEnvironments) => {

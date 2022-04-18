@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { HeaderContainer } from "../Header/styles";
 
 type EventsProps = {
 	open: boolean;
@@ -7,16 +8,8 @@ type InputController = {
 	type: string;
 };
 
-export const Container = styled.div<EventsProps>`
+export const Container = styled(HeaderContainer)<EventsProps>`
 	transition: ${({ open }) => (open || !open) && "width 2s"};
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	color: #ffffff;
-	padding: 0 10px;
-	height: 25vh;
-	background-color: #2c2c2c;
-	border-bottom: #00bfff;
 	button {
 		align-self: flex-start;
 		margin-top: 10px;
@@ -27,6 +20,8 @@ export const InputsContainer = styled.div`
 	display: flex;
 	flex-wrap: wrap;
 	color: #ffffff;
+	align-items: space-between;
+	width: 100%;
 `;
 
 export const InputArea = styled.div<InputController>`

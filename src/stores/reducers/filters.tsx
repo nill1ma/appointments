@@ -1,21 +1,21 @@
-import { PeriodFiltersEnum } from "../../models/enumns/period-filters";
-import { FiltersState } from "../../models/reducers/filters-state";
-import { Action } from "../actions";
+import { FilterStoreData } from "../../models/reducers/filters-store";
+import { Action } from "./actions/filters";
 
-const INITIAL_STATE: FiltersState = {
-	data: {
-		type: PeriodFiltersEnum.YEAR,
-		reference: `${new Date().getFullYear()}`,
-	},
+type FilterPayload = {
+	data: string;
+};
+
+const INITIAL_STATE: FilterStoreData = {
+	data: "",
 };
 
 function filtersReducer(
-	state: FiltersState = INITIAL_STATE,
-	action: Action<FiltersState>
+	state: FilterPayload = INITIAL_STATE,
+	action: Action<string>
 ) {
 	switch (action.type) {
 		case "APPLY_FILTER":
-			return { ...state, data: action.payload };
+			return { data: action.payload };
 		default:
 			return state;
 	}

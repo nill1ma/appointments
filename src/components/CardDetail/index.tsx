@@ -1,6 +1,7 @@
 import { IAppointment } from "../../models/appointments";
-import { Container } from "./styles";
+import { Container, Icon } from "./styles";
 import { formatDate } from "../../utils/handle-date";
+import { faEdit, faWindowClose } from "@fortawesome/free-solid-svg-icons";
 
 type CardDetailProps = {
 	detail: IAppointment;
@@ -10,15 +11,17 @@ type CardDetailProps = {
 export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 	return (
 		<Container>
-			<span
-				className="title"
-				data-testid={"close-area"}
-				onClick={() => setDetail(undefined)}
-			>
-				{detail.title}
-			</span>
+			<div className="title">
+				<span data-testid={"close-area"}>{detail.title}</span>
+				<div>
+					<Icon icon={faEdit} />
+					<Icon icon={faWindowClose} onClick={() => setDetail(undefined)} />
+				</div>
+			</div>
 			<div>
-				<span className="description">{detail.description}</span>
+				<div contentEditable="true" className="description">
+					{detail.description}
+				</div>
 				<div className="period">
 					<span>From: {formatDate(detail.start)}</span>
 					<span>To: {formatDate(detail.end)}</span>

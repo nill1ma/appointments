@@ -16,16 +16,15 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	display: flex;
 	flex-wrap: wrap;
 	border-right: 1px solid #2c2c2c;
-	overflow-y: scroll;
+	overflow-y: auto;
 	::-webkit-scrollbar {
 		width: 5px;
 	}
 
-	/* Track */
 	::-webkit-scrollbar-track {
 		-webkit-box-shadow: inset 0 0 6px #2c2c2c;
 	}
-	/* Handle */
+
 	::-webkit-scrollbar-thumb {
 		background: #363636;
 		-webkit-box-shadow: inset 0 0 6px #2c2c2c;

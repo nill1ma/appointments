@@ -1,19 +1,28 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export const Container = styled.div`
 	display: flex;
 	width: 50%;
 	flex-direction: column;
 	align-items: center;
-	span.title {
+	.title {
 		font-weight: bold;
-		background-color: #2f2f2f;
+		background-color: #2c2c2f;
 		color: #ffffff;
-		border-top: 1px solid #fffff0;
+		border-top: 1px solid #ffffff;
 		display: flex;
-		justify-content: center;
-		width: 96%;
+		flex-direction: row;
+		justify-content: space-between;
+		align-items: center;
+		width: 95%;
 		padding: 2%;
+		div {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-around;
+			width: 10%;
+		}
 	}
 	div {
 		display: flex;
@@ -35,4 +44,8 @@ export const Container = styled.div`
 			padding: 1%;
 		}
 	}
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+	cursor: pointer;
 `;

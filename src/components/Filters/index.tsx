@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { monthLabels } from "../../helpers/constants";
 import { PeriodFiltersEnum } from "../../models/enumns/period-filters";
 import { References } from "../../models/filters-references";
 import { Container, Direction } from "./styles";
@@ -81,7 +82,11 @@ export default function Filters({ handleCurrentPeriod }: FiltersProps) {
 				<Direction isNext={false} onClick={filterDecrement}>
 					Prev
 				</Direction>
-				<div>{reference.value}</div>
+				<div>
+					{reference.type === "MONTH"
+						? monthLabels[reference.value]
+						: reference.value}
+				</div>
 				<Direction isNext={true} onClick={filterIncrement}>
 					Next
 				</Direction>

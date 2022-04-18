@@ -1,6 +1,6 @@
 import { IAppointment } from "../models/appointments";
 
-export const getAppointments = () =>
+export const getAppointments = (): IAppointment[] =>
 	JSON.parse(localStorage.getItem(`appointments`) || `[]`);
 
 export const getAppointmentById = (id: string) => {
@@ -23,10 +23,13 @@ export const saveAppointment = (environment: IAppointment) => {
 	);
 };
 
-export const deleteAppointment = (id: string) => {
+export const deleteAppointment = (index: number) => {
 	const appointments = getAppointments();
-	const updatedAppointments = appointments.filter(
-		(env: IAppointment) => env.id !== id
+	localStorage.setItem(
+		`appointments`,
+		JSON.stringify([...appointments.splice(index, 1)])
 	);
-	return updatedAppointments;
 };
+
+const removeAppointment = (appointments: IAppointment[], id: string) =>
+	appointments.filter((appointment: IAppointment) => id !== appointment.id);

@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 type CardContainerProps = {
 	itIsWithin: boolean;
@@ -13,6 +14,7 @@ export const CardContainer = styled.div<CardContainerProps>`
 	cursor: pointer;
 	width: 20%;
 	height: 100px;
+	padding: 5px;
 	margin: 5px 0 0 5px;
 	span:nth-child(1) {
 		font-size: 0.8em;
@@ -25,4 +27,8 @@ export const CardContainer = styled.div<CardContainerProps>`
 		align-items: flex-start;
 		font-size: 0.7em;
 	}
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+	align-self: flex-end;
 `;

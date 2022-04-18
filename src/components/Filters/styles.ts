@@ -1,27 +1,19 @@
 import styled from "styled-components";
+import { HeaderContainer } from "../Header/styles";
 
 type ReferencesStyleProps = {
 	isNext?: boolean;
 	active?: boolean;
 };
 
-export const Container = styled.div`
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-	height: 25vh;
-	background-color: #2c2c2c;
-	color: #ffffff;
+export const Container = styled(HeaderContainer)`
 	.refValueArea {
 		width: 20%;
-		padding-top: 10px;
-		display: flex;
+		display: flex !important;
+		flex-direction: row !important;
 		justify-content: space-between;
 		align-items: center;
-		div {
-			font-size: 1.5em;
-		}
+		font-size: 1.5em;
 	}
 `;
 
