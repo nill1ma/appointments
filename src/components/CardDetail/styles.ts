@@ -23,6 +23,23 @@ export const Container = styled.div`
 			justify-content: space-around;
 			width: 10%;
 		}
+
+		input {
+			background-color: #2c2c2c;
+			border: none;
+			color: #ffffff;
+			outline: none;
+			border-bottom: 1px solid #ffffff;
+			padding: 9px 0;
+		}
+	}
+	textarea {
+		min-width: 100%;
+		max-width: 100%;
+		padding: 2% 0;
+		outline: none;
+		border: none;
+		border-bottom: 1px solid #2c2c2c;
 	}
 	div {
 		display: flex;

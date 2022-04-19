@@ -17,10 +17,6 @@ export const Header = styled.div`
 	align-items: center;
 `;
 
-export const Input = styled.input.attrs({ type: "text" })`
-	padding: 10px;
-`;
-
 export const Button = styled.button`
 	padding: 10px;
 	width: 220px;
@@ -42,6 +38,21 @@ export const AdaptedIcon = styled.div`
 	align-items: center;
 	font-weight: bold;
 	border: 1px solid #2c2c2c;
+`;
+
+export const InputsArea = styled.div`
+	display: flex;
+	flex-direction: column;
+	width: 220px;
+	.form-group {
+		display: flex;
+		flex-direction: column;
+	}
+`;
+
+export const Input = styled.input`
+	padding: 10px;
+	width: calc(100% - 20px);
 `;
 
 export const Icon = styled(FontAwesomeIcon)``;

@@ -15,21 +15,17 @@ export const getAppointmentDetail = () =>
 export const setappointmentDetail = (detail: IAppointment) =>
 	localStorage.setItem(`appointmentDetail`, JSON.stringify(detail));
 
-export const saveAppointment = (environment: IAppointment) => {
+export const saveAppointment = (appointment: IAppointment) => {
 	const appointments = getAppointments();
 	localStorage.setItem(
 		`appointments`,
-		JSON.stringify([...appointments, environment])
+		JSON.stringify([...appointments, appointment])
 	);
 };
 
-export const deleteAppointment = (index: number) => {
-	const appointments = getAppointments();
-	localStorage.setItem(
-		`appointments`,
-		JSON.stringify([...appointments.splice(index, 1)])
-	);
-};
+export const updateAppointment = (appointments: IAppointment[]) =>
+	localStorage.setItem(`appointments`, JSON.stringify([...appointments]));
 
-const removeAppointment = (appointments: IAppointment[], id: string) =>
-	appointments.filter((appointment: IAppointment) => id !== appointment.id);
+export const deleteAppointment = (appointments: IAppointment[]) => {
+	localStorage.setItem(`appointments`, JSON.stringify([...appointments]));
+};

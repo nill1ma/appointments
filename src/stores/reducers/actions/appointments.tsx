@@ -18,3 +18,10 @@ export const deleteAppointment = (
 	type: "DELETE_APPOINTMENT",
 	payload: appointment,
 });
+
+export const updateAppointment = (
+	appointment: IAppointment
+): Action<IAppointment> => ({
+	type: "UPDATE_APPOINTMENT",
+	payload: appointment,
+});

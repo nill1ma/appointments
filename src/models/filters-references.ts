@@ -4,5 +4,5 @@ export type References = {
 	label?: string;
 	active?: boolean;
 	type: PeriodFiltersEnum;
-	value: number;
+	reference: number;
 };

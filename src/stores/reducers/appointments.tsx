@@ -2,6 +2,7 @@ import { IAppointment } from "../../models/appointments";
 import {
 	deleteAppointment,
 	getAppointments,
+	updateAppointment,
 } from "../../services/appointments";
 import { Action } from "./actions/appointments";
 
@@ -21,11 +22,18 @@ function appointmentsReducer(
 		case "ADD_APPOINTMENT":
 			return { data: [...state.data, action.payload] };
 		case "DELETE_APPOINTMENT":
-			const index = state.data.findIndex(
-				(dt: IAppointment) => dt.id === action.payload.id
+			const appointments = state.data.filter(
+				({ id }: IAppointment) => id !== action.payload.id
 			);
-			deleteAppointment(index);
-			return { data: [...state.data.slice(index, 1)] };
+			deleteAppointment(appointments);
+			return { data: [...appointments] };
+		case "UPDATE_APPOINTMENT":
+			const index = state.data.findIndex(
+				(item) => item.id === action.payload.id
+			);
+			state.data[index] = action.payload;
+			updateAppointment(state.data);
+			return { data: [...state.data] };
 		default:
 			return state;
 	}

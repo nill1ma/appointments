@@ -10,6 +10,7 @@ type Inputs = {
 	label: string;
 	type: string;
 	placeholder?: string;
+	value?: string;
 };
 
 type CreateAppointmentProps = {
@@ -21,6 +22,9 @@ export default function CreateAppointment({
 	isOpened,
 	action,
 }: CreateAppointmentProps) {
+	const [appointment, setAppointment] = useState<IAppointment>(
+		{} as IAppointment
+	);
 	const inputs: Inputs[] = [
 		{
 			id: "1",
@@ -28,6 +32,7 @@ export default function CreateAppointment({
 			label: `Title`,
 			type: `text`,
 			placeholder: `Type a Title`,
+			value: appointment.title,
 		},
 		{
 			id: "3",
@@ -35,17 +40,27 @@ export default function CreateAppointment({
 			label: `Description`,
 			type: `text`,
 			placeholder: `Type a Description`,
+			value: appointment.description,
 		},
-		{ id: "5", name: `start`, label: `Start`, type: `datetime-local` },
-		{ id: "7", name: `end`, label: `End`, type: `datetime-local` },
+		{
+			id: "5",
+			name: `start`,
+			label: `Start`,
+			type: `datetime-local`,
+			value: appointment.start,
+		},
+		{
+			id: "7",
+			name: `end`,
+			label: `End`,
+			type: `datetime-local`,
+			value: appointment.end,
+		},
 	];
-
-	const [appointment, setAppointment] = useState<IAppointment>(
-		{} as IAppointment
-	);
 
 	const useAction = () => {
 		action(appointment);
+		setAppointment({} as IAppointment);
 	};
 
 	const hadleAppointment = (event: ChangeEvent<HTMLInputElement>) => {
@@ -58,14 +73,11 @@ export default function CreateAppointment({
 	return (
 		<Container open={isOpened}>
 			<InputsContainer>
-				{inputs.map(({ id, name, label, type, placeholder }: Inputs) => {
+				{inputs.map(({ id, name, label, type, placeholder, value }: Inputs) => {
 					return (
 						<InputArea key={id} type={type}>
-							<label key={`${label}`} htmlFor={name}>
-								{label}
-							</label>
+							<label htmlFor={name}>{label}</label>
 							<input
-								key={name}
 								onChange={(e: ChangeEvent<HTMLInputElement>) =>
 									hadleAppointment(e)
 								}
@@ -73,6 +85,7 @@ export default function CreateAppointment({
 								type={type}
 								name={name}
 								id={name}
+								value={value}
 							/>
 						</InputArea>
 					);

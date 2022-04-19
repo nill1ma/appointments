@@ -1,3 +1,5 @@
-export type FilterStoreData = {
-	data: string;
+import { References } from "../filters-references";
+
+export type PeriodFilterStore = {
+	data: References;
 };

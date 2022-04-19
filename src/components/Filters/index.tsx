@@ -1,8 +1,16 @@
+import {
+	faCaretSquareLeft,
+	faCaretSquareRight,
+} from "@fortawesome/free-solid-svg-icons";
 import { useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { monthLabels } from "../../helpers/constants";
 import { PeriodFiltersEnum } from "../../models/enumns/period-filters";
 import { References } from "../../models/filters-references";
-import { Container, Direction } from "./styles";
+import { RootState } from "../../stores/reducers";
+import { applyFilter } from "../../stores/reducers/actions/filters";
+import { PeriodFilterPayload } from "../../stores/reducers/filters";
+import { Container, Icon } from "./styles";
 
 type FiltersProps = {
 	handleCurrentPeriod: (ref: References) => void;
@@ -10,31 +18,31 @@ type FiltersProps = {
 
 export default function Filters({ handleCurrentPeriod }: FiltersProps) {
 	const date = new Date();
+	const dispatch = useDispatch();
 	const [referencesMenu, setReferencesMenu] = useState<References[]>([
 		// {
-		// 	value: date.getDate(),
+		// 	reference: date.getDate(),
 		// 	label: "Day",
 		// 	type: PeriodFiltersEnum.DAY,
 		// 	active: false,
 		// },
 		{
-			value: date.getMonth() + 1,
+			reference: date.getMonth() + 1,
 			label: "Month",
 			type: PeriodFiltersEnum.MONTH,
 			active: false,
 		},
 		{
-			value: date.getFullYear(),
+			reference: date.getFullYear(),
 			label: "Year",
 			type: PeriodFiltersEnum.YEAR,
 			active: false,
 		},
 	]);
 
-	const [reference, setReference] = useState<References>({
-		type: PeriodFiltersEnum.YEAR,
-		value: date.getFullYear(),
-	});
+	const { data }: PeriodFilterPayload = useSelector(
+		(state: RootState) => state.filters
+	);
 
 	const handleCurrentReference = (currentReference: References) => {
 		setReferencesMenu((previous: References[]) => {
@@ -48,48 +56,46 @@ export default function Filters({ handleCurrentPeriod }: FiltersProps) {
 				}),
 			];
 		});
-		setReference(currentReference);
+		// setReference(currentReference);
 	};
 
 	useEffect(() => {
-		handleCurrentPeriod(reference);
-	}, [reference]);
+		handleCurrentPeriod(data);
+	}, [data]);
 
-	const filterIncrement = () =>
-		setReference((prev) => {
-			return {
-				...prev,
-				value:
-					prev.type === "MONTH"
-						? prev.value < 12
-							? prev.value + 1
-							: prev.value
-						: prev.value + 1,
-			};
-		});
+	const filterIncrement = () => {
+		const { type, reference } = data;
+		dispatch(
+			applyFilter({
+				type,
+				reference:
+					"MONTH" === type
+						? reference < 12
+							? reference + 1
+							: reference
+						: reference + 1,
+			})
+		);
+	};
 
-	const filterDecrement = () =>
-		setReference((prev) => {
-			return {
-				...prev,
-				value: prev.value > 1 ? prev.value - 1 : prev.value,
-			};
-		});
+	const filterDecrement = () => {
+		const { type, reference } = data;
+		dispatch(
+			applyFilter({
+				type,
+				reference: reference > 1 ? reference - 1 : reference,
+			})
+		);
+	};
 
 	return (
 		<Container>
 			<div className="refValueArea">
-				<Direction isNext={false} onClick={filterDecrement}>
-					Prev
-				</Direction>
+				<Icon icon={faCaretSquareLeft} onClick={filterDecrement} />
 				<div>
-					{reference.type === "MONTH"
-						? monthLabels[reference.value]
-						: reference.value}
+					{"MONTH" === data.type ? monthLabels[data.reference] : data.reference}
 				</div>
-				<Direction isNext={true} onClick={filterIncrement}>
-					Next
-				</Direction>
+				<Icon icon={faCaretSquareRight} onClick={filterIncrement} />
 			</div>
 		</Container>
 	);

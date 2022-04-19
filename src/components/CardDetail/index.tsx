@@ -1,7 +1,14 @@
+import {
+	faEdit,
+	faSave,
+	faWindowClose,
+} from "@fortawesome/free-solid-svg-icons";
+import { ChangeEvent, useState } from "react";
+import { useDispatch } from "react-redux";
 import { IAppointment } from "../../models/appointments";
-import { Container, Icon } from "./styles";
+import { updateAppointment } from "../../stores/reducers/actions/appointments";
 import { formatDate } from "../../utils/handle-date";
-import { faEdit, faWindowClose } from "@fortawesome/free-solid-svg-icons";
+import { Container, Icon } from "./styles";
 
 type CardDetailProps = {
 	detail: IAppointment;
@@ -9,22 +16,101 @@ type CardDetailProps = {
 };
 
 export default function CardDetail({ detail, setDetail }: CardDetailProps) {
+	const [isEditable, setIsEditable] = useState(false);
+	const [appointment, setAppointment] = useState<IAppointment>(detail);
+	const dispatch = useDispatch();
+
+	const editAppointment = (
+		event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+	) => {
+		const { name, value } = event.target;
+		console.log(value, " valueeee");
+		setAppointment((previous: IAppointment) => {
+			return { ...previous, [name]: value };
+		});
+
+		console.log(appointment, " -> Editing Appointment");
+	};
+
+	const save = () => {
+		dispatch(updateAppointment(appointment));
+		setIsEditable(false);
+	};
+
 	return (
 		<Container>
 			<div className="title">
-				<span data-testid={"close-area"}>{detail.title}</span>
+				{isEditable ? (
+					<input
+						type="text"
+						name="title"
+						value={appointment.title}
+						onChange={(event: ChangeEvent<HTMLInputElement>) =>
+							editAppointment(event)
+						}
+					/>
+				) : (
+					<span
+						id="title"
+						contentEditable={isEditable}
+						data-testid={"close-area"}
+					>
+						{appointment.title}
+					</span>
+				)}
 				<div>
-					<Icon icon={faEdit} />
+					{isEditable ? (
+						<Icon onClick={save} icon={faSave} />
+					) : (
+						<Icon onClick={() => setIsEditable(!isEditable)} icon={faEdit} />
+					)}
 					<Icon icon={faWindowClose} onClick={() => setDetail(undefined)} />
 				</div>
 			</div>
 			<div>
-				<div contentEditable="true" className="description">
-					{detail.description}
-				</div>
+				{isEditable ? (
+					<textarea
+						name="description"
+						value={appointment.description}
+						onChange={(event: ChangeEvent<HTMLTextAreaElement>) =>
+							editAppointment(event)
+						}
+					></textarea>
+				) : (
+					<div
+						contentEditable={isEditable}
+						id="description"
+						className="description"
+					>
+						{appointment.description}
+					</div>
+				)}
 				<div className="period">
-					<span>From: {formatDate(detail.start)}</span>
-					<span>To: {formatDate(detail.end)}</span>
+					{isEditable ? (
+						<>
+							<input
+								onChange={(event: ChangeEvent<HTMLInputElement>) =>
+									editAppointment(event)
+								}
+								name="start"
+								type="datetime-local"
+								value={appointment.start}
+							/>
+							<input
+								onChange={(event: ChangeEvent<HTMLInputElement>) =>
+									editAppointment(event)
+								}
+								name="end"
+								type="datetime-local"
+								value={appointment.end}
+							/>
+						</>
+					) : (
+						<>
+							<span>From: {formatDate(appointment.start)}</span>
+							<span>To: {formatDate(appointment.end)}</span>
+						</>
+					)}
 				</div>
 			</div>
 		</Container>

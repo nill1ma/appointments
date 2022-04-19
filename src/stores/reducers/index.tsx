@@ -1,8 +1,8 @@
 import { combineReducers } from "redux";
 import { appointmentsReducer } from "./appointments";
-import { filtersReducer } from "./filters";
+import { periodFilterReducer } from "./filters";
 const reducers = combineReducers({
-	filters: filtersReducer,
+	filters: periodFilterReducer,
 	appointments: appointmentsReducer,
 });
 

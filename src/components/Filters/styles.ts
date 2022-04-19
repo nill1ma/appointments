@@ -1,3 +1,4 @@
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import styled from "styled-components";
 import { HeaderContainer } from "../Header/styles";
 
@@ -44,4 +45,8 @@ export const Direction = styled.button<ReferencesStyleProps>`
 	background-color: #ffffff;
 	border: none;
 	color: #2c2c2c;
+`;
+
+export const Icon = styled(FontAwesomeIcon)`
+	cursor: pointer;
 `;
