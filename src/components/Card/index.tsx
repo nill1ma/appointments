@@ -1,7 +1,8 @@
+import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import { IAppointment } from "../../models/appointments";
 import { formatDate } from "../../utils/handle-date";
 import { CardContainer, Icon } from "./styles";
-import { faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 type CardProps = {
 	item: IAppointment;
@@ -10,7 +11,7 @@ type CardProps = {
 };
 
 export default function Card({ item, setDetail, removeCard }: CardProps) {
-	const itIsWithin = () => {
+	const isItWithin = () => {
 		const date = new Date();
 		console.log(
 			date.getTime() >= new Date(item.start).getTime() &&
@@ -22,9 +23,16 @@ export default function Card({ item, setDetail, removeCard }: CardProps) {
 			date.getTime() <= new Date(item.end).getTime()
 		);
 	};
+	const [itIsWithin, setItIsWithin] = useState(isItWithin());
+
+	useEffect(() => {
+		setTimeout(() => setItIsWithin(isItWithin()), 60000);
+
+		// return () => clearInterval(interval);
+	}, [itIsWithin]);
 
 	return (
-		<CardContainer onClick={() => setDetail(item)} itIsWithin={itIsWithin()}>
+		<CardContainer onClick={() => setDetail(item)} itIsWithin={itIsWithin}>
 			<Icon onClick={() => removeCard(item)} size={"sm"} icon={faTrashAlt} />
 			<span>{item.title}</span>
 			<div>
