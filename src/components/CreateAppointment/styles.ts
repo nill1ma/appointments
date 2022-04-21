@@ -22,6 +22,12 @@ export const InputsContainer = styled.div`
 	color: #ffffff;
 	align-items: space-between;
 	width: 100%;
+	@media (max-width: 720px) {
+		display: flex;
+		flex-direction: column;
+		color: #ffffff;
+		width: 100%;
+	}
 `;
 
 export const InputArea = styled.div<InputController>`
@@ -32,5 +38,16 @@ export const InputArea = styled.div<InputController>`
 	input {
 		padding: ${({ type }) => (type === "text" ? "10px" : "7px")};
 		width: 90%;
+	}
+
+	@media (max-width: 720px) {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		color: #ffffff;
+		width: 100%;
+		input {
+			padding: ${({ type }) => (type === "text" ? "7px" : "5px")};
+		}
 	}
 `;

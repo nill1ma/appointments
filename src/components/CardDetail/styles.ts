@@ -17,6 +17,14 @@ export const Container = styled.div`
 		align-items: center;
 		width: 95%;
 		padding: 2%;
+
+		@media (max-width: 720px) {
+			padding: 0;
+			width: 100%;
+			span {
+				margin-left: 10px;
+			}
+		}
 		div {
 			display: flex;
 			flex-direction: row;
@@ -31,6 +39,10 @@ export const Container = styled.div`
 			outline: none;
 			border-bottom: 1px solid #ffffff;
 			padding: 9px 0;
+			@media (max-width: 720px) {
+				padding: 0 0 0 10px;
+				border: none;
+			}
 		}
 	}
 	textarea {
@@ -40,6 +52,10 @@ export const Container = styled.div`
 		outline: none;
 		border: none;
 		border-bottom: 1px solid #2c2c2c;
+		@media (max-width: 720px) {
+			padding: 0;
+			border: none;
+		}
 	}
 	div {
 		display: flex;
@@ -54,12 +70,32 @@ export const Container = styled.div`
 			span {
 				margin-left: 10px;
 			}
+			@media (max-width: 720px) {
+				flex-direction: column;
+				align-items: flex-start;
+				padding: 0;
+				span {
+					margin: 0;
+				}
+			}
+			input[type="datetime-local"] {
+				border: none;
+				width: 70%;
+				outline: none;
+			}
 		}
 		.description {
 			display: flex;
 			text-align: left;
 			padding: 1%;
+			@media (max-width: 720px) {
+				padding: 0;
+			}
 		}
+	}
+	@media (max-width: 720px) {
+		border: 1px solid #2c2c2c;
+		width: calc(100% - 2px);
 	}
 `;
 

@@ -3,7 +3,7 @@ import {
 	faSave,
 	faWindowClose,
 } from "@fortawesome/free-solid-svg-icons";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { IAppointment } from "../../models/appointments";
 import { updateAppointment } from "../../stores/reducers/actions/appointments";
@@ -24,18 +24,19 @@ export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 		event: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
 	) => {
 		const { name, value } = event.target;
-		console.log(value, " valueeee");
 		setAppointment((previous: IAppointment) => {
 			return { ...previous, [name]: value };
 		});
-
-		console.log(appointment, " -> Editing Appointment");
 	};
 
 	const save = () => {
 		dispatch(updateAppointment(appointment));
 		setIsEditable(false);
 	};
+
+	useEffect(() => {
+		setAppointment(detail);
+	}, [detail]);
 
 	return (
 		<Container>
@@ -89,6 +90,7 @@ export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 					{isEditable ? (
 						<>
 							<input
+								className="datetime"
 								onChange={(event: ChangeEvent<HTMLInputElement>) =>
 									editAppointment(event)
 								}
@@ -97,6 +99,7 @@ export default function CardDetail({ detail, setDetail }: CardDetailProps) {
 								value={appointment.start}
 							/>
 							<input
+								className="datetime"
 								onChange={(event: ChangeEvent<HTMLInputElement>) =>
 									editAppointment(event)
 								}

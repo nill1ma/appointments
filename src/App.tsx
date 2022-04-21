@@ -10,13 +10,12 @@ function App() {
 	const [user, setUser] = useState<Users | null>(null);
 
 	const actionGoogleSignIn = async (u: any) => {
-		const newUser: Users = {
+		const currentUser: Users = {
 			id: u.uid,
 			name: u.displayName,
 			avatar: u.photoURL,
 		};
-		console.log(newUser, " newUser");
-		setUser(newUser);
+		setUser(currentUser);
 	};
 
 	if (user === null) {

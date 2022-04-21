@@ -6,7 +6,9 @@ import Card from "../../components/Card";
 import CardDetail from "../../components/CardDetail";
 import CreateAppointment from "../../components/CreateAppointment";
 import Filters from "../../components/Filters";
+import Message from "../../components/Message";
 import UserInfo from "../../components/UserInfo";
+import { messages } from "../../helpers/constants";
 import { IAppointment } from "../../models/appointments";
 import { References } from "../../models/filters-references";
 import { Users } from "../../models/users";
@@ -93,7 +95,12 @@ export default function Appointment({ user }: AppointmentsProps) {
 			</>
 			<Content>
 				<CardsContainer hasDetail={detail !== undefined}>
-					{appointments &&
+					{appointments.length < 1 ? (
+						<Message
+							type="info"
+							message={messages.info.NO_APPOINTMENT_FOR_THIS_FILTER}
+						/>
+					) : (
 						appointments.map((appointment: IAppointment) => {
 							return (
 								<Card
@@ -103,7 +110,8 @@ export default function Appointment({ user }: AppointmentsProps) {
 									setDetail={setDetail}
 								/>
 							);
-						})}
+						})
+					)}
 				</CardsContainer>
 				{detail && <CardDetail detail={detail} setDetail={setDetail} />}
 			</Content>

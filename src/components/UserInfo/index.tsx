@@ -13,6 +13,7 @@ export const UserInfoContainer = styled.div`
 		justify-content: flex-end;
 		align-items: center;
 		width: 30%;
+		height: auto;
 		img {
 			width: 1.5em;
 			height: 1.5em;
@@ -20,6 +21,19 @@ export const UserInfoContainer = styled.div`
 		}
 		span {
 			padding: 0 5px;
+		}
+	}
+
+	@media (max-width: 720px) {
+		display: flex;
+		div {
+			width: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			span {
+				padding: 0;
+			}
 		}
 	}
 `;

@@ -32,10 +32,24 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	::-webkit-scrollbar-thumb:window-inactive {
 		background: #363636;
 	}
+
+	@media (max-width: 720px) {
+		display: flex;
+		align-items: center;
+		width: 100%;
+		border: none;
+		padding-bottom: 5px;
+		flex-wrap: nowrap;
+		overflow-x: auto;
+	}
 `;
 
 export const Content = styled.div`
 	width: 100%;
 	display: flex;
 	height: 75vh;
+	@media (max-width: 720px) {
+		flex-direction: column;
+		height: auto;
+	}
 `;

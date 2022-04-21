@@ -29,6 +29,11 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 	align-self: ${({ self_alignment }) => self_alignment};
 	border-radius: ${({ borderRadius }) =>
 		borderRadius ? borderRadius : `10px`};
+	@media (max-width: 720px) {
+		width: ${({ right }) => (right ? "30%" : "100%")};
+		padding: 0;
+		right: unset;
+	}
 `;
 
 export default function Button({
