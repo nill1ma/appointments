@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import Button from "../../components/Button";
+import Actions from "../../components/Actions";
 import Card from "../../components/Card";
 import CardDetail from "../../components/CardDetail";
 import CreateAppointment from "../../components/CreateAppointment";
@@ -17,7 +17,7 @@ import { RootState } from "../../stores/reducers";
 
 import {
 	addAppointment,
-	deleteAppointment,
+	deleteAppointment
 } from "../../stores/reducers/actions/appointments";
 import { AppointmentsPayload } from "../../stores/reducers/appointments";
 import { CardsContainer, Container, Content } from "./styles";
@@ -26,8 +26,10 @@ type AppointmentsProps = {
 	user: Users;
 };
 
+type CurrentAppointments = IAppointment & { selected?: boolean }
+
 export default function Appointment({ user }: AppointmentsProps) {
-	const [isOpened, setIsOpened] = useState<boolean>(false);
+	const [isItFiltering, setIsItFiltering] = useState<boolean>(false);
 
 	const { data }: AppointmentsPayload = useSelector(
 		(state: RootState) => state.appointments
@@ -35,7 +37,8 @@ export default function Appointment({ user }: AppointmentsProps) {
 
 	const dispatch = useDispatch();
 
-	const [appointments, setAppointments] = useState<IAppointment[]>(data);
+	const [appointments, setAppointments] = useState<CurrentAppointments[]>(data);
+	const [enableToSelectToDelete, setEnableToSelectToDelete] = useState<boolean>(false)
 
 	useEffect(() => {
 		setAppointments(data);
@@ -56,7 +59,15 @@ export default function Appointment({ user }: AppointmentsProps) {
 		dispatch(addAppointment(appointment));
 	};
 
-	const handleOpenedState = () => setIsOpened(!isOpened);
+	const handleIsItFiltering = () => {
+		setIsItFiltering(prev => !prev)
+	}
+
+	const handleSetEnableToSelectToDelete = () => setEnableToSelectToDelete(prev => !prev)
+
+	const deleteSelectedAppopintments = () => {
+		console.log('deleting')
+	}
 
 	const filterAppointments = (references: References) => {
 		const allAppointments: IAppointment[] = data;
@@ -69,6 +80,15 @@ export default function Appointment({ user }: AppointmentsProps) {
 		});
 		setAppointments([...filteredAppointments]);
 	};
+
+	const selectAppointmentToDelete = (id: string) => {
+		setAppointments((previous: CurrentAppointments[]) => {
+			return [...previous.map((prev: CurrentAppointments) => {
+				prev.id === id && (prev.selected = !prev.selected)
+				return prev
+			})]
+		})
+	}
 
 	// const compareReferences = (type: string, filter: Date, reference: string) => {
 	// 	switch (type) {
@@ -87,13 +107,20 @@ export default function Appointment({ user }: AppointmentsProps) {
 		<Container>
 			<UserInfo avatar={user.avatar} name={user.name} />
 			<>
-				{isOpened ? (
-					<CreateAppointment isOpened={isOpened} action={save} />
+				{isItFiltering ? (
+					<CreateAppointment isOpened={isItFiltering} action={save} />
 				) : (
 					<Filters handleCurrentPeriod={filterAppointments} />
 				)}
 			</>
 			<Content>
+				<Actions
+					handleFilter={handleIsItFiltering}
+					isItFiltering={isItFiltering}
+					setEnableToSelectToDelete={handleSetEnableToSelectToDelete}
+					enableToSelectToDelete={enableToSelectToDelete}
+					deleteSelectedAppopintments={deleteSelectedAppopintments}
+				/>
 				<CardsContainer hasDetail={detail !== undefined}>
 					{appointments.length < 1 ? (
 						<Message
@@ -104,10 +131,13 @@ export default function Appointment({ user }: AppointmentsProps) {
 						appointments.map((appointment: IAppointment) => {
 							return (
 								<Card
+									itIsPastEvent={new Date().getTime() > new Date(appointment.end).getTime()}
 									removeCard={removeCard}
 									key={appointment.id}
 									item={appointment}
 									setDetail={setDetail}
+									enableToSelectToDelete={enableToSelectToDelete}
+									selectAppointmentToDelete={selectAppointmentToDelete}
 								/>
 							);
 						})
@@ -115,14 +145,6 @@ export default function Appointment({ user }: AppointmentsProps) {
 				</CardsContainer>
 				{detail && <CardDetail detail={detail} setDetail={setDetail} />}
 			</Content>
-			<Button
-				bottom={`5%`}
-				right={`1%`}
-				self_alignment={`flex-end`}
-				position={`fixed`}
-				label={isOpened ? `Filter` : `Create an Appointment`}
-				action={handleOpenedState}
-			/>
 		</Container>
 	);
 }

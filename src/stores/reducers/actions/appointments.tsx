@@ -12,6 +12,13 @@ export const addAppointment = (
 	payload: appointment,
 });
 
+export const updateAppointment = (
+	appointment: IAppointment
+): Action<IAppointment> => ({
+	type: "UPDATE_APPOINTMENT",
+	payload: appointment,
+});
+
 export const deleteAppointment = (
 	appointment: IAppointment
 ): Action<IAppointment> => ({
@@ -19,9 +26,9 @@ export const deleteAppointment = (
 	payload: appointment,
 });
 
-export const updateAppointment = (
-	appointment: IAppointment
-): Action<IAppointment> => ({
-	type: "UPDATE_APPOINTMENT",
-	payload: appointment,
+export const deleteAppointmentInBatch = (
+	appointments: IAppointment[]
+): Action<IAppointment[]> => ({
+	type: "DELETE_APPOINTMENT_IN_BATCH",
+	payload: appointments,
 });

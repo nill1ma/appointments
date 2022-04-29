@@ -26,11 +26,14 @@ export const UserInfoContainer = styled.div`
 
 	@media (max-width: 720px) {
 		display: flex;
+		height: 7vh;
+		padding: 10px 0;
 		div {
 			width: 100%;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
+
 			span {
 				padding: 0;
 			}

@@ -22,17 +22,18 @@ const ButtonStyle = styled.button<ButtonStyleProps>`
 	background-color: #00bfff;
 	border: none;
 	outline: none;
-	cursor: pointer;
 	position: ${({ position }) => position};
 	bottom: ${({ bottom }) => bottom};
 	right: ${({ right }) => right};
 	align-self: ${({ self_alignment }) => self_alignment};
 	border-radius: ${({ borderRadius }) =>
 		borderRadius ? borderRadius : `10px`};
+	cursor: pointer;
 	@media (max-width: 720px) {
-		width: ${({ right }) => (right ? "30%" : "100%")};
-		padding: 0;
+		width: ${({ right }) => (right ? "auto" : "50%")};
+		padding: 5px;
 		right: unset;
+		margin:0 auto;
 	}
 `;
 

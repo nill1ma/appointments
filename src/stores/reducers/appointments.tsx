@@ -39,4 +39,21 @@ function appointmentsReducer(
 	}
 }
 
+function removeAppointmentsInBatch(
+	appointments: IAppointment[],
+	appointmentsToRemove: IAppointment[]
+): IAppointment[] {
+	let currentAppointments: IAppointment[] = [];
+	for (let toRemove of appointmentsToRemove)
+		currentAppointments = [
+			...appointments.splice(
+				appointments.findIndex(
+					(appointment: IAppointment) => appointment.id === toRemove.id
+				),
+				1
+			),
+		];
+	return currentAppointments;
+}
+
 export { appointmentsReducer };

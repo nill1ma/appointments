@@ -15,7 +15,6 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 	width: ${({ hasDetail }) => (hasDetail ? `50%` : `100%`)};
 	display: flex;
 	flex-wrap: wrap;
-	border-right: 1px solid #2c2c2c;
 	overflow-y: auto;
 	::-webkit-scrollbar {
 		width: 5px;
@@ -47,6 +46,7 @@ export const CardsContainer = styled.div<CardsContainerProps>`
 export const Content = styled.div`
 	width: 100%;
 	display: flex;
+	flex-direction: column;
 	height: 75vh;
 	@media (max-width: 720px) {
 		flex-direction: column;

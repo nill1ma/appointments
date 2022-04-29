@@ -1,11 +1,12 @@
 import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-type IconsProps = {
+type CardContainerProps = {
 	color?: string;
+	visible?: boolean;
 };
 
-export const CardContainer = styled.div`
+export const CardContainer = styled.div<CardContainerProps>`
 	display: flex;
 	flex-direction: column;
 	justify-content: space-around;
@@ -28,15 +29,26 @@ export const CardContainer = styled.div`
 	}
 	div {
 		align-self: flex-end;
-		padding: 5%;
+		padding: 5% 0;
 		display: flex;
 		flex-direction: column;
 		align-items: flex-start;
 		font-size: 0.7em;
 	}
+
+	.footer {
+		width: calc(100%);
+		display: flex;
+		/* border: 1px solid red; */
+		flex-direction: row;
+		justify-content: space-between;
+		input {
+			visibility: ${({ visible }) => (visible ? "visible" : "hidden")};
+		}
+	}
 `;
 
-export const Icon = styled(FontAwesomeIcon)<IconsProps>`
+export const Icon = styled(FontAwesomeIcon)<CardContainerProps>`
 	align-self: flex-end;
 	color: ${({ color }) => color};
 `;
